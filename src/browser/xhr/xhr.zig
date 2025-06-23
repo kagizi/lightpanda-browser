@@ -846,7 +846,7 @@ test "Browser.XHR.XMLHttpRequest" {
         .{ "req.onload = cbk", "function cbk(event) { nb ++; evt = event; }" },
 
         .{ "req.open('GET', 'https://127.0.0.1:9581/xhr')", "undefined" },
-        .{ "req.setRequestHeader('User-Agent', 'lightpanda/1.0')", "undefined" },
+        .{ "req.setRequestHeader('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36')", "undefined" },
 
         // ensure open resets values
         .{ "req.status  ", "0" },

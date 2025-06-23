@@ -731,7 +731,7 @@ pub const Request = struct {
             try self.headers.append(arena, .{ .name = "Host", .value = self._request_host });
         }
 
-        try self.headers.append(arena, .{ .name = "User-Agent", .value = "Lightpanda/1.0" });
+        try self.headers.append(arena, .{ .name = "User-Agent", .value = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" });
         self.requestStarting();
     }
 
@@ -2867,7 +2867,7 @@ test "HttpClient: sync with body" {
         try testing.expectEqual("Close", res.header.get("connection"));
         try testing.expectEqual("10", res.header.get("content-length"));
         try testing.expectEqual("127.0.0.1", res.header.get("_host"));
-        try testing.expectEqual("Lightpanda/1.0", res.header.get("_user-agent"));
+        try testing.expectEqual("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36", res.header.get("_user-agent"));
     }
 }
 
@@ -2943,7 +2943,7 @@ test "HttpClient: sync redirect from TLS to Plaintext" {
         try testing.expectEqual("Close", res.header.get("connection"));
         try testing.expectEqual("10", res.header.get("content-length"));
         try testing.expectEqual("127.0.0.1", res.header.get("_host"));
-        try testing.expectEqual("Lightpanda/1.0", res.header.get("_user-agent"));
+        try testing.expectEqual("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36", res.header.get("_user-agent"));
     }
 }
 
@@ -2989,7 +2989,7 @@ test "HttpClient: sync GET redirect" {
     try testing.expectEqual("Close", res.header.get("connection"));
     try testing.expectEqual("10", res.header.get("content-length"));
     try testing.expectEqual("127.0.0.1", res.header.get("_host"));
-    try testing.expectEqual("Lightpanda/1.0", res.header.get("_user-agent"));
+    try testing.expectEqual("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36", res.header.get("_user-agent"));
 }
 
 test "HttpClient: async connect error" {
@@ -3087,7 +3087,7 @@ test "HttpClient: async with body" {
     try res.assertHeaders(&.{
         "content-length", "10",
         "_host",          "127.0.0.1",
-        "_user-agent",    "Lightpanda/1.0",
+        "_user-agent",    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
         "connection",     "Close",
     });
 }
@@ -3140,7 +3140,7 @@ test "HttpClient: async redirect" {
     try res.assertHeaders(&.{
         "content-length", "10",
         "_host",          "127.0.0.1",
-        "_user-agent",    "Lightpanda/1.0",
+        "_user-agent",    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
         "connection",     "Close",
     });
 }
@@ -3212,7 +3212,7 @@ test "HttpClient: async redirect from TLS to Plaintext" {
         try res.assertHeaders(&.{
             "content-length", "10",
             "_host",          "127.0.0.1",
-            "_user-agent",    "Lightpanda/1.0",
+            "_user-agent",    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
             "connection",     "Close",
         });
     }

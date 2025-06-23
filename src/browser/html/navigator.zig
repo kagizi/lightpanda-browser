@@ -22,7 +22,7 @@ const builtin = @import("builtin");
 
 // https://html.spec.whatwg.org/multipage/system-state.html#navigator
 pub const Navigator = struct {
-    agent: []const u8 = "Lightpanda/1.0",
+    agent: []const u8 = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
     version: []const u8 = "1.0",
     vendor: []const u8 = "",
     platform: []const u8 = std.fmt.comptimePrint("{any} {any}", .{ builtin.os.tag, builtin.cpu.arch }),
@@ -89,7 +89,7 @@ test "Browser.HTML.Navigator" {
     defer runner.deinit();
 
     try runner.testCases(&.{
-        .{ "navigator.userAgent", "Lightpanda/1.0" },
+        .{ "navigator.userAgent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" },
         .{ "navigator.appVersion", "1.0" },
         .{ "navigator.language", "en-US" },
     }, .{});
