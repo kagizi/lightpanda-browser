@@ -144,12 +144,12 @@ pub const Page = struct {
         return self.fetchData("module", src);
     }
 
-    pub fn wait(self: *Page) !void {
+    pub fn wait(self: *Page, wait_ns: usize) !void {
         var try_catch: Env.TryCatch = undefined;
         try_catch.init(self.main_context);
         defer try_catch.deinit();
 
-        try self.session.browser.app.loop.run();
+        try self.session.browser.app.loop.run(wait_ns);
 
         if (try_catch.hasCaught() == false) {
             log.debug(.browser, "page wait complete", .{});
@@ -986,12 +986,19 @@ const Script = struct {
         defer try_catch.deinit();
 
         const src = self.src orelse page.url.raw;
+        // if self.src is null, then this is an inline script, and it should
+        // not be cached.
+        const cacheable = self.src != null;
 
-        log.debug(.browser, "executing script", .{ .src = src, .kind = self.kind });
+        log.debug(.browser, "executing script", .{
+            .src = src,
+            .kind = self.kind,
+            .cacheable = cacheable,
+        });
 
         const result = switch (self.kind) {
             .javascript => page.main_context.eval(body, src),
-            .module => page.main_context.module(body, src),
+            .module => page.main_context.module(body, src, cacheable),
         };
 
         result catch {
@@ -1003,6 +1010,7 @@ const Script = struct {
                 log.warn(.user_script, "eval script", .{
                     .src = src,
                     .err = msg,
+                    .cacheable = cacheable,
                 });
             }
 
